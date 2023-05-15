@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Layout, Button, Space, Typography,Input, Form, Checkbox } from 'antd';
+const { Title } = Typography;
+const { Header, Footer, Content } = Layout;
+const headerStyle = {
+  textAlign: 'center',
+  color: '#fff',
+  height: 64,
+  paddingInline: 50,
+  lineHeight: '64px',
+  backgroundColor: '#f4f2ee',
+};
+const contentStyle = {
+  textAlign: 'center',
+  minHeight: 120,
+  height:450,
+  lineHeight: '120px',
+  color: '#fff',
+  backgroundColor: '#efe7d2',
+};
+const footerStyle = {
+  textAlign: 'center',
+  color: '#fff',
+  backgroundColor: '#f4f2ee',
+};
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+
+export default OpeningScreen;
