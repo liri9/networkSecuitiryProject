@@ -2,8 +2,10 @@
         import { Layout, Button, Space, Typography,Input, Form, Checkbox, Modal } from 'antd';
         import { useNavigate } from "react-router-dom";
 
+
         const { Title } = Typography;
         const { Header, Footer, Content,Sider } = Layout;
+
 
         const headerStyle = {
         textAlign: 'center',
@@ -29,37 +31,31 @@
 
 
 
-        const ChangePassword = () => {
-        const navigate = useNavigate();
-        navigate("/changePassword");
-        };
-
-        const ForgotPasswordComponent =() => {
-        const [isModalOpen, setIsModalOpen] = useState(false);
-
-        const showModal = () => {
-        setIsModalOpen(true);
-        };
-
-        <Modal
-          title="Choose name and color"
-          open={isModalOpen}
-        ></Modal>
-
-        };
-
-        const ResetPassword =() => {
-
-
-
-        };
-
         const LoginPageComponent = () =>{
         const navigate = useNavigate();
 
         const [username, setUsername] = useState('');
         const [password, setPassword] = useState('');
+        const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+        const showModal = () => {
+          setIsModalOpen(true);
+          };
+          const handleOk = () => {
+            setIsModalOpen(false);
+          };
+        
+          const handleCancel = () => {
+            setIsModalOpen(false);
+          };
+  
+          // const finishedReset = () => {
+          //   navigate("/tables/arrangeTables");
+          // };
+        const ChangePassword = () => {
+          navigate("/ChangePasswordPage");
+        };
         const handleUsernameChange = (event) => {
         setUsername(event.target.value);
         };
@@ -74,7 +70,7 @@
         };
 
         return (
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
         <Form.Item
         label="Username"
         name="username"
@@ -106,15 +102,34 @@
           Login
           </Button>
 
-        <Button type="primary">
+        <Button type="primary" onClick={showModal}>
           Forgot Password
           </Button>
           <Button type="primary" onClick={ChangePassword}>
           Change Password
           </Button>
         </Space>
-
-        </form>
+        <Modal
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}>
+          <Form>
+          <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+          ]}
+          >
+          <Input />
+          </Form.Item>
+          </Form>
+        </Modal>
+        </Form>
+        
         )
         };
 

@@ -12,9 +12,6 @@ import RegisterPage from "./pages/registerPage"
 import ChangePasswordPage from "./pages/changePasswordPage"
 
 
-
-
-
 function NewMenu() {
     return (
       <Router>
@@ -22,7 +19,7 @@ function NewMenu() {
               <Route index element={<OpeningScreen />} />
               <Route path="RegisterPage" element={<RegisterPage />} />
               <Route path="LoginPage" element={<LoginPage />} />
-              <Route path="ChangePasswordPage" element={<changePassword />} />
+              <Route path="ChangePasswordPage" element={<ChangePasswordPage />} />
             </Routes>
       </Router>
     );
