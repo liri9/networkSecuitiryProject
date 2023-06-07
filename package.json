@@ -8,7 +8,11 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.4.4",
     "react": "^18.2.0",
+    "react-auto-tab": "^2.0.1",
+    "react-code-input": "^3.10.1",
+    "react-codes-input": "^2.2.3",
     "react-dom": "^18.2.0",
+    "react-input-code": "^1.0.10",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

@@ -123,8 +123,7 @@ const submissionShow = useRef(true);
           </Form.Item>
           <Form.Item
             label="Repeat Password"
-            validateStatus={repeatPassword === password ? 'success' : 'error'}
-            help={repeatPassword === password ? null : 'Passwords do not match'}
+           
           >
             <Input.Password
               value={repeatPassword}

@@ -1,6 +1,6 @@
 
-import { Layout, Button, Space, Typography,Input, Form, Checkbox, Modal } from 'antd';
-import React , { useRef, useState } from 'react';
+import { Layout, Button, Space, Typography,Input, Form } from 'antd';
+import React , {  useState } from 'react';
 
 const { Title } = Typography;
 
