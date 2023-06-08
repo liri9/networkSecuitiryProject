@@ -42,36 +42,16 @@ const SystemScreenContent =()=>{
     </Space.Compact>
     <Title level={4}>Result:</Title>
     <Title level={4}></Title>
-    {/* <input
- 
-  role="textbox"
-  maxLength="6"
-  className="form-control ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength ng-touched"
-  required
-  only-digits
-  name="otpInput"
-  id="otpInput"
-  fdprocessedid="mod7ub"
-  onChange={(e) => {
-    const value = e.target.value;
-    // Handle the value change here, for example:
-    // vm.loginDetails.otp = value;
-  }}
-/> */}
-
-    {/* <div class="form-group input-wrapper2 small-mobile-border"> */}
-    {/* </div> */}
-
-    </div>
+   </div>
     )
 
 }
 
-const SystemScreen = ({isAuthenticated}) => {
-    const navigate = useNavigate();
-    if (!isAuthenticated) {
-        navigate("/LoginPage");
-    }
+const SystemScreen = () => {
+   // const navigate = useNavigate();
+    // if (!isAuthenticated) {
+    //     navigate("/LoginPage");
+    // }
 return (
 <Space
 direction="vertical"
