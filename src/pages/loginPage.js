@@ -14,7 +14,7 @@ const SendTo =() =>
 {
   const navigate = useNavigate();
 
-  navigate("/SystemChange");
+  navigate("/SystemScreen");
 
 }
 
