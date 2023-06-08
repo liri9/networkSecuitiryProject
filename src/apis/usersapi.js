@@ -1,11 +1,12 @@
 import axios from "axios";
 
+const url ='https://localhost:8443';
 
 
 export async function Login(values) {
     try {
       const response = await axios.post(
-        `http://localhost:8081/users/login`,
+        url+`/users/login`,
         values,
         {
           headers: {
@@ -24,7 +25,7 @@ export async function Login(values) {
   export async function Register(values) {
     try {
       const response = await axios.post(
-        `http://localhost:8081/users`,
+        url+`/users`,
         values,
         {
           headers: {
@@ -36,14 +37,14 @@ export async function Login(values) {
       return response.data;
     } catch (error) {
       console.error(error);
-      return error.response.data.message;
+      return error.response;
     }
   }
 
 export async function updateUser(values, id) {
     try {
       const response = await axios.put(
-        `http://localhost:8081/users/${id}`,
+        url+`/users/${id}`,
         values,
         {
           headers: {
@@ -61,7 +62,7 @@ export async function updateUser(values, id) {
   export async function forgotPassword(userName) {
     try {
       const response = await axios.post(
-        `http://localhost:8081/users/forgot`,
+        url+`/users/forgot`,
         userName,
         {
           headers: {

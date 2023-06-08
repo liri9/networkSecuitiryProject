@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const url ='https://localhost:8443';
+
 export async function deleteAllUsers() {
     try {
       const response = await axios.delete(
-        `http://localhost:8081/users`
+        url+`/users`
       );
       return response;
     } catch (error) {
@@ -15,7 +17,7 @@ export async function deleteAllUsers() {
   export async function getAllUsers() {
     try {
       const response = await axios.get(
-        `http://localhost:8081/users`
+        url+`/users`
       );
       return response;
     } catch (error) {

@@ -96,20 +96,17 @@ const RegisterPageContent = () => {
   };
 
   const onFinish = async (values) => {
-    if (passwordsMatch) 
-        console.log(values);
-   //const result = await Register();
+    try{
+     if (values.password === values.repeatPassword) {
+        const { repeatPassword, ...cleanValues } = values;
+        const result = await Register(cleanValues);
+        console.log(result);
+       if (result) successMsg("Registration successful!");
 
-    // await ClientRegisterApi(values);
-    // if (dataFromServer) { // todo change when we add post in the back
-    //   console.log(dataFromServer);
-    //   successMsg("Registration successful!");
-    //   submissionShow.current = false;
-    // //  setRegisterSuccess(true);
-    // } else {
-    //   errorMsg("somthing went wrong");
-    //  // setRegisterSuccess(false);
-    // }
+     }
+
+      else {errorMsg("passwords do not match")}
+    } catch (error) {console.log(error);}
   };
 
   return (
@@ -162,7 +159,7 @@ const RegisterPageContent = () => {
         </Form.Item>
 
         <Form.Item
-        name="repeat password"
+        name="repeatPassword"
         rules={[
           {
             required: true,
@@ -176,7 +173,7 @@ const RegisterPageContent = () => {
             dependencies={['password']}
         rules={[
           { required: true, message: 'Please confirm your password!' },
-          { validator: validatePassword },
+          // { validator: validatePassword },
         ]}
             suffix={
               repeatPassword === password ? <Checkbox checked={true} /> : null
