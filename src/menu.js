@@ -16,6 +16,7 @@ function NewMenu() {
     return (
       <Router>
             <Routes>
+            <Route path="*" element={"nothing to see"} />
               <Route index element={<OpeningScreen />} />
               <Route path="RegisterPage" element={<RegisterPage />} />
               <Route path="LoginPage" element={<LoginPage />} />

@@ -10,6 +10,10 @@ import {
   message,
 } from "antd";
 import { Register } from "../apis/usersapi";
+import { useNavigate } from "react-router-dom";
+import  SetAuthenticated  from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+
 
 const { Title } = Typography;
 const { Header, Footer, Content, Sider } = Layout;
@@ -46,29 +50,8 @@ const RegisterPageContent = () => {
   const submissionShow = useRef(true);
   const [form] = Form.useForm();
   const [passwordsMatch, setPasswordsMatch] = useState(false);
-
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    setPasswordValid(
-      event.target.value.length >= 10 &&
-        /[a-z]/.test(event.target.value) &&
-        /[A-Z]/.test(event.target.value) &&
-        /[0-9]/.test(event.target.value) &&
-        /[^\w\s]/.test(event.target.value)
-    );
-  };
-
-  const handleRepeatPasswordChange = (event) => {
-    setRepeatPassword(event.target.value);
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const successMsg = (text) => {
     messageApi.open({
@@ -76,6 +59,9 @@ const RegisterPageContent = () => {
       contenet: text,
     });
   };
+  function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
 
   const errorMsg = (text) => {
     messageApi.open({
@@ -83,25 +69,22 @@ const RegisterPageContent = () => {
       content: text,
     });
   };
-  const validatePassword = (_, value) => {
-    const { confirm } = Form.getFieldsValue(['repeat password']);
-    console.log(value,confirm);
-    if (value && confirm && value !== confirm) {
-      setPasswordsMatch(false);
-      return Promise.reject('The passwords do not match');
-    } else {
-      setPasswordsMatch(true);
-      return Promise.resolve();
-    }
-  };
 
   const onFinish = async (values) => {
+  
     try{
      if (values.password === values.repeatPassword) {
         const { repeatPassword, ...cleanValues } = values;
+        console.log(cleanValues);
         const result = await Register(cleanValues);
         console.log(result);
-       if (result) successMsg("Registration successful!");
+       if (result){
+
+        successMsg("Registration successful!");
+        await timeout(1000);
+        dispatch(SetAuthenticated(true));
+        navigate("/SystemScreen");
+       }
 
      }
 
@@ -114,7 +97,7 @@ const RegisterPageContent = () => {
       {contextHolder}
       <Form onFinish={onFinish}>
         <Form.Item
-          name={["username"]}
+          name={["userName"]}
           // label="User Name"
           rules={[
             {

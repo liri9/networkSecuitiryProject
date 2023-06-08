@@ -1,5 +1,10 @@
 import { Layout, Button, Space, Typography, Input } from 'antd';
+import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import  SetAuthenticated  from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+
 
 const { Header, Footer, Content,Sider } = Layout;
 const { Title } = Typography;
@@ -48,10 +53,27 @@ const SystemScreenContent =()=>{
 }
 
 const SystemScreen = () => {
-   // const navigate = useNavigate();
-    // if (!isAuthenticated) {
-    //     navigate("/LoginPage");
-    // }
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const authenticated = useSelector((state) => state.userReducer.authenticated);
+  console.log(authenticated);
+
+  //console.log(isAuthenticated);
+  useEffect(() => {
+    const checkIfAuthenticated =  () => {
+      if (!authenticated) {
+        navigate("/LoginPage");
+    }
+    else{
+      dispatch(SetAuthenticated(false));
+
+    }
+      };
+
+    checkIfAuthenticated();
+  }, []);
+
+ 
 return (
 <Space
 direction="vertical"

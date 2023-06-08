@@ -54,7 +54,6 @@ const LoginPageComponent = () => {
   const [isResetPassModalOpen, setIsResetModalOpen] = useState(false);
   const [isPassModalOpen, setIsPassModalOpen] = useState(false);
   const SendTo = () => {
-    const navigate = useNavigate();
   
     navigate("/SystemScreen");
   };
