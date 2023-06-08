@@ -35,7 +35,7 @@ const SystemScreenContent =()=>{
     return (
         <div>
     <Title level={4}>Welcome</Title>
-    <Title level={4}>Enter your username:</Title>
+    <Title level={4}>Enter your new customer name:</Title>
     <Space.Compact>
       <Input/>
       <Button type="primary" onClick={Show}>Submit</Button>
@@ -67,11 +67,11 @@ const SystemScreenContent =()=>{
 
 }
 
-const SystemScreen = () => {
+const SystemScreen = ({isAuthenticated}) => {
     const navigate = useNavigate();
-    // if (!isAuthenticated) {
-    //     navigate("/LoginPage");
-    // }
+    if (!isAuthenticated) {
+        navigate("/LoginPage");
+    }
 return (
 <Space
 direction="vertical"
