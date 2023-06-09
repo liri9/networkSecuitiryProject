@@ -41,6 +41,25 @@ export async function Login(values) {
     }
   }
 
+  export async function updateUserPass(values){
+    try {
+      const response = await axios.put(
+        url+`/users`,
+        values,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
 export async function updateUser(values, id) {
     try {
       const response = await axios.put(

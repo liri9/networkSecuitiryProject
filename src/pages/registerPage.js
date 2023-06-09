@@ -75,9 +75,7 @@ const RegisterPageContent = () => {
     try{
      if (values.password === values.repeatPassword) {
         const { repeatPassword, ...cleanValues } = values;
-        console.log(cleanValues);
         const result = await Register(cleanValues);
-        console.log(result);
        if (result){
 
         successMsg("Registration successful!");
