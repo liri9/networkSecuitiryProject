@@ -8,13 +8,14 @@ import {
   Form,
   Modal,
   InputNumber,
+  message,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import ReactCodeInput from "react-code-input";
 import "react-input-code/dist/index.css";
 import { AutoTabProvider } from "react-auto-tab";
 import "../styles.css";
-import { Login, forgotPassword } from "../apis/usersapi";
+import { Login, forgotPassword, updateUser } from "../apis/usersapi";
 
 const { Title } = Typography;
 const { Header, Footer, Content, Sider } = Layout;
@@ -48,10 +49,38 @@ const LoginPageComponent = () => {
   const [isResetPassModalOpen, setIsResetModalOpen] = useState(false);
   const [isPassModalOpen, setIsPassModalOpen] = useState(false);
   const [userName, setUserName] = useState();
-  
+  const [verificationCode, setVerificationCode] = useState('');
+  const [otp,setOtp]= useState();
+  const [messageApi, contextHolder] = message.useMessage();
+
+
+
+  const successMsg = (text) => {
+    messageApi.open({
+      type: "success",
+      contenet: text,
+    });
+  };
+  function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
+
+  const errorMsg = (text) => {
+    messageApi.open({
+      type: "error",
+      content: text,
+    });
+  };
+
+
   const SendEmail = async (values) => {
-    const userName = values.userName;
- // const num = await forgotPassword(userName);
+   // const userName = values.userName;
+    console.log(userName);
+    try{
+      const num = await forgotPassword({userName: userName});
+      console.log(num);
+      setOtp(num);
+    } catch (error) {console.log(error);}
   };
   
   
@@ -63,12 +92,17 @@ const LoginPageComponent = () => {
     setIsResetModalOpen(true);
   };
   const handleResetOk = () => {
-    setIsResetModalOpen(false);
-    setIsPassModalOpen(true);
+    if(otp==verificationCode){
+      setIsResetModalOpen(false);
+      setIsPassModalOpen(true);
+    }
+    else {errorMsg("doesnt match to your email");}
   };
   const handlePassOk = () => {
-    setIsPassModalOpen(false);
-    //SendTo();
+
+
+
+
   };
   const handleUserNameChange = (e) => {
       setUserName(e.target.value);
@@ -79,9 +113,29 @@ const LoginPageComponent = () => {
     setIsPassModalOpen(false);
   };
 
+  const handleVerificationCodeChange = (event) => {
+    setVerificationCode(event.target.value);  
+  }
+
   const ChangePassword = () => {
     navigate("/ChangePasswordPage");
   };
+
+  const updatePass = async(values)=> {
+    try{
+      if (values.password === values.repeatPassword) {
+        //const { repeatPassword, ...cleanValues } = values;
+        const result = await updateUser({userName: userName, 
+          newPass:values.password});
+          if (!result) {
+            await timeout(1000);
+              setIsPassModalOpen(false);
+         SendTo();}
+      }
+    }
+    catch(error){console.log(error);}
+
+  }
 
   const onFinish = async (values) => {
     try{
@@ -90,13 +144,14 @@ const LoginPageComponent = () => {
         console.log(response);
         if(response.userName===values.userName) {
           SendTo();
-          console.log("helloooo");}
-    //else { console.log(user);}
+         }
     }
     catch(error){console.log(error);}
   };
 
   return (
+    <>
+    {contextHolder}
     <Form onFinish={onFinish}>
       <Form.Item
         label="Username"
@@ -166,7 +221,7 @@ const LoginPageComponent = () => {
               </text>
             </Space>
             <Form.Item>
-              <Input id="partitioned" type="number" maxlength="6" />
+              <Input id="partitioned" type="number" maxlength="6" onChange={handleVerificationCodeChange}/>
             </Form.Item>
           </div>
         </Form>
@@ -178,17 +233,29 @@ const LoginPageComponent = () => {
         onOk={handlePassOk}
         onCancel={handleCancel}
       >
+        <Form onFinish={updatePass}>
+
+        
         <Form.Item
+          name="password"
           label="Password"
         >
           <Input.Password  />
         </Form.Item>
-        <Form.Item label="Repeat Password">
+        <Form.Item
+        name="repeatPassword"
+        label="Repeat Password">
           <Input.Password
           />
         </Form.Item>
+        <Button type="primary" htmlType="submit">
+          Finish
+        </Button>
+        </Form>
       </Modal>
     </Form>
+    </>
+
   );
 };
 
@@ -223,3 +290,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+

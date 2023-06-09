@@ -60,10 +60,10 @@ export async function Login(values) {
     }
   }
 
-export async function updateUser(values, id) {
+export async function updateUser(values) {
     try {
       const response = await axios.put(
-        url+`/users/${id}`,
+        url+`/users/forgot`,
         values,
         {
           headers: {
