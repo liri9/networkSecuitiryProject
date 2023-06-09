@@ -56,8 +56,8 @@ const ChangePasswordConmponent = () => {
     return new Promise( res => setTimeout(res, delay) );
 }
   const SendTo = () => {
-    navigate("/SystemScreen");
-  };
+    navigate("/SystemScreen", { state: { authentication: true } });
+};
   const onFinish = async (values) => {
     try{
         if (values.newPass === values.repeatPassword) {

@@ -56,7 +56,7 @@ const LoginPageComponent = () => {
   
   
   const SendTo = () => {
-    navigate("/SystemScreen");
+    navigate("/SystemScreen", { state: { authentication: true } });
   };
 
   const showModal = () => {
@@ -84,16 +84,15 @@ const LoginPageComponent = () => {
   };
 
   const onFinish = async (values) => {
-    console.log(values);
     try{
-      if (values.password === values.repeatPassword) {
-        const { repeatPassword, ...cleanValues } = values;
-    const user = await Login(values);
-    console.log(values);
-    console.log(user);
-    if(user.ok) SendTo();
+     
+        const response = await Login(values);
+        console.log(response);
+        if(response.userName===values.userName) {
+          SendTo();
+          console.log("helloooo");}
     //else { console.log(user);}
-    }}
+    }
     catch(error){console.log(error);}
   };
 
