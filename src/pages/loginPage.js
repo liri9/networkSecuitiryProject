@@ -88,7 +88,7 @@ const LoginPageComponent = () => {
     const user = await Login(values);
     console.log(values);
     console.log(user);
-    if(user) SendTo();
+    if(user.ok) SendTo();
     //else { console.log(user);}
     }
     catch(error){console.log(error);}
