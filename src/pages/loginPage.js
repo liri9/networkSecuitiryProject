@@ -19,7 +19,6 @@ import { Login, forgotPassword } from "../apis/usersapi";
 const { Title } = Typography;
 const { Header, Footer, Content, Sider } = Layout;
 
-
 const headerStyle = {
   textAlign: "center",
   color: "#fff",
@@ -42,21 +41,24 @@ const footerStyle = {
   backgroundColor: "#f4f2ee",
 };
 
-const SendEmail = async (username) => {
-  const num = await forgotPassword(username);
-};
 
 const LoginPageComponent = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [isResetPassModalOpen, setIsResetModalOpen] = useState(false);
   const [isPassModalOpen, setIsPassModalOpen] = useState(false);
-  const SendTo = () => {
+  const [userName, setUserName] = useState();
   
+  const SendEmail = async (values) => {
+    const userName = values.userName;
+ // const num = await forgotPassword(userName);
+  };
+  
+  
+  const SendTo = () => {
     navigate("/SystemScreen");
   };
+
   const showModal = () => {
     setIsResetModalOpen(true);
   };
@@ -66,26 +68,37 @@ const LoginPageComponent = () => {
   };
   const handlePassOk = () => {
     setIsPassModalOpen(false);
-    SendTo();
+    //SendTo();
+  };
+  const handleUserNameChange = (e) => {
+      setUserName(e.target.value);
   };
 
   const handleCancel = () => {
     setIsResetModalOpen(false);
     setIsPassModalOpen(false);
   };
+
   const ChangePassword = () => {
     navigate("/ChangePasswordPage");
   };
 
   const onFinish = async (values) => {
+    try{
     const user = await Login(values);
+    console.log(values);
+    console.log(user);
+    if(user) SendTo();
+    //else { console.log(user);}
+    }
+    catch(error){console.log(error);}
   };
 
   return (
     <Form onFinish={onFinish}>
       <Form.Item
         label="Username"
-        name="username"
+        name="userName"
         rules={[
           {
             required: true,
@@ -113,7 +126,7 @@ const LoginPageComponent = () => {
         <Button type="primary" htmlType="submit">
           Login
         </Button>
-
+        <h1></h1>
         <Button type="primary" onClick={showModal}>
           Forgot Password
         </Button>
@@ -130,7 +143,8 @@ const LoginPageComponent = () => {
         <Form>
           <Form.Item
             label="Username"
-            name="username"
+            name="userName"
+            onChange={handleUserNameChange}
             rules={[
               {
                 required: true,
@@ -142,7 +156,7 @@ const LoginPageComponent = () => {
           </Form.Item>
           <div>
             <Space direction="vertical">
-              <Button type="primary" onClick={SendEmail(username)}>
+              <Button type="primary" onClick={SendEmail}>
                 Send E-mail
               </Button>
               <text>
@@ -164,24 +178,11 @@ const LoginPageComponent = () => {
       >
         <Form.Item
           label="Password"
-          // validateStatus={passwordValid ? 'success' : 'error'}
-          // help={
-          //   passwordValid
-          //     ? null
-          //     : 'Must contain at least 10 characters, one capital letter, one lowercase letter, one special character, and one digit'
-          // }
         >
-          <Input.Password value={password} />
+          <Input.Password  />
         </Form.Item>
         <Form.Item label="Repeat Password">
           <Input.Password
-          // value={repeatPassword}
-          // onChange={handleRepeatPasswordChange}
-          // suffix={
-          //   repeatPassword === password ? (
-          //     <Checkbox checked={true} />
-          //   ) : null
-          // }
           />
         </Form.Item>
       </Modal>

@@ -1,9 +1,8 @@
 import { Layout, Button, Space, Typography, Input } from 'antd';
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import  SetAuthenticated  from "../redux/userSlice";
-import { useDispatch } from "react-redux";
 
 
 const { Header, Footer, Content,Sider } = Layout;
@@ -55,7 +54,8 @@ const SystemScreenContent =()=>{
 const SystemScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const authenticated = useSelector((state) => state.userReducer.authenticated);
+  const authenticated = true;
+  // = useSelector((state) => state.userReducer.authenticated);
   console.log(authenticated);
 
   //console.log(isAuthenticated);
@@ -65,7 +65,7 @@ const SystemScreen = () => {
         navigate("/LoginPage");
     }
     else{
-      dispatch(SetAuthenticated(false));
+  //   dispatch(SetAuthenticated(false));
 
     }
       };

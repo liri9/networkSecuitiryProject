@@ -71,7 +71,7 @@ const RegisterPageContent = () => {
   };
 
   const onFinish = async (values) => {
-  
+
     try{
      if (values.password === values.repeatPassword) {
         const { repeatPassword, ...cleanValues } = values;
@@ -82,7 +82,7 @@ const RegisterPageContent = () => {
 
         successMsg("Registration successful!");
         await timeout(1000);
-        dispatch(SetAuthenticated(true));
+      //  dispatch(SetAuthenticated(true));
         navigate("/SystemScreen");
        }
 
